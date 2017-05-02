@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<H1>WELCOME to Employee managment Service</H1>
-</body>
-</html>
+	<html>
+		<head>
+			<meta charset=UTF-8>
+			<title>Insert title here</title>
+		</head>
+		<body>
+			<h1>WELCOME to Employee managment Service</h1>
+			<p>
+				GET List OF Employee :/Employee/rest/service/employee
+				</br>
+				GET Single Employee
+				:/Employee/rest/service/employee/{id}
+				</br>
+				POST Add Employee :/Employee/rest/service/addEmployee
+				</br>
+				DELETE delete Employee
+				:/Employee/rest/service/deleteEmployee
+				</br>
+				PUT update Employee
+				:/Employee/rest/service/updateEmployee
+				</br>
+			<p>
+				EMPLOYEE OBJECT:{ _id, firstName, lastName, designation,
+				gender}
+			<p>
+				<a href="/Employee/rest/service/employee">
+					List of employee
+				</a>
+				</br>
+
+
+			<h1>add New Employee:</h1>
+			<br>
+			<form action="rest/service/addEmployee" method="post">
+				First name:
+				<input type="text" name="firstName">
+				<br>
+				Last name:
+				<input type="text" name="lastName">
+				<br>
+				Designation:
+				<input type="text" name="designation">
+				<br>
+				<input type="radio" name="gender" value="male" checked>
+				Male
+				<br>
+				<input type="radio" name="gender" value="female">
+				Female
+				<br>
+				<input type="submit" value="Submit">
+			</form>
+		</body>
+	</html>
