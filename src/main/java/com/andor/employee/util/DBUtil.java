@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.andor.employee.exception.DAOException;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
@@ -21,7 +23,7 @@ public class DBUtil {
 	private final static Integer DBPORT = Integer.parseInt(readDBProperties("DB_PORT"));
 	private final static MongoCredential credential = MongoCredential.createScramSha1Credential(DB_ID, DB_NAME, DB_PASSWORD.toCharArray());
 	private final static MongoClient client = new MongoClient(new ServerAddress(HOST_NAME,DBPORT), Arrays.asList(credential));
-
+	private final static Logger LOGGER = Logger.getLogger(DBUtil.class.getName());
 	private DBUtil() {
 	}
 
@@ -32,7 +34,7 @@ public class DBUtil {
 			dBPropFile.load(inputStream);
 			return dBPropFile.getProperty(read);
 		} catch (IOException e) {
-			System.out.println("FILE Exception" + e);
+			LOGGER.error("Error in Reading Properties File",e);
 			return null;
 		}
 	}

@@ -25,9 +25,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/local/PAYODA/anmol.s/jars/jackson-annotations-2.1.2.jar"/>
-	<classpathentry kind="lib" path="/home/local/PAYODA/anmol.s/jars/jackson-all-1.9.0.jar"/>
-	<classpathentry kind="lib" path="/home/local/PAYODA/anmol.s/jars/gson-2.2.2.jar"/>
-	<classpathentry kind="lib" path="/home/local/PAYODA/anmol.s/jars/javax.ws.rs.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

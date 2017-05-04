@@ -18,33 +18,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String EMPLOYEE_PROFILE = "employeeProfile";
 	private static final Gson gson = new Gson();
 
-	
 	@Override
 	public boolean addEmployee(Employee newEmp) throws DAOException {
 		DBObject empDoc = (DBObject) JSON.parse(gson.toJson(newEmp));
 		DBCollection empCollection = DBUtil.getDBCollection(EMPLOYEE_PROFILE);
 		empDoc.put("_id", getNextSequence("userid"));
 		empCollection.insert(empDoc);
-
 		return true;
 
 	}
 
-	
 	@Override
 	public List<Employee> getListOfEmployee() throws DAOException {
 		List<Employee> empList = new ArrayList<>();
 		DBCollection empCollection = DBUtil.getDBCollection(EMPLOYEE_PROFILE);
 		DBCursor cursor = empCollection.find();
 		while (cursor.hasNext()) {
-			empList.add(gson.fromJson(gson.toJson(cursor.next()),Employee.class));
+			empList.add(gson.fromJson(gson.toJson(cursor.next()),
+					Employee.class));
 		}
 
 		return empList;
 
 	}
 
-	
 	@Override
 	public boolean deleteEmployee(Integer empId) throws DAOException {
 		DBCollection empCollection = DBUtil.getDBCollection(EMPLOYEE_PROFILE);
@@ -55,25 +52,25 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	}
 
-	
 	@Override
-	public boolean updateEmployee(Employee empUpdate)	throws DAOException {
+	public boolean updateEmployee(Employee empUpdate) throws DAOException {
 		DBCollection empCollection = DBUtil.getDBCollection(EMPLOYEE_PROFILE);
-		BasicDBObject query=new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
 		query.put("_id", empUpdate.get_Id());
-		return empCollection.update(query, (DBObject) JSON.parse(gson.toJson(empUpdate))).isUpdateOfExisting();
+		return empCollection.update(query,
+				(DBObject) JSON.parse(gson.toJson(empUpdate)))
+				.isUpdateOfExisting();
 
 	}
 
-	
 	@Override
-	public Employee getEmployeeProfile(Integer empId) throws DAOException{
+	public Employee getEmployeeProfile(Integer empId) throws DAOException {
 		DBCollection empCollection = DBUtil.getDBCollection(EMPLOYEE_PROFILE);
-		BasicDBObject query=new BasicDBObject();
+		BasicDBObject query = new BasicDBObject();
 		query.put("_id", empId);
-		DBCursor cursor=empCollection.find(query);
-			return gson.fromJson(gson.toJson(cursor.next()),Employee.class);
-		
+		DBCursor cursor = empCollection.find(query);
+		return gson.fromJson(gson.toJson(cursor.next()), Employee.class);
+
 	}
 
 	public static Object getNextSequence(String name) throws DAOException {
@@ -87,5 +84,4 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return result.get("seq");
 	}
 
-	
 }
