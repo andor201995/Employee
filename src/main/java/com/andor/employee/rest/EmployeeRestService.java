@@ -1,21 +1,20 @@
 package com.andor.employee.rest;
 
-import javax.ws.rs.core.Response;
+import java.util.List;
 
-import com.andor.employee.exception.DAOException;
+import com.andor.employee.bean.Employee;
+import com.andor.employee.exception.AndorBusinessException;
 
 public interface EmployeeRestService {
 
-	Response displayAllEmployee() throws DAOException;
+	List<Employee> getListOfEmployee() throws AndorBusinessException;
 
-	Response displayEmployee(String empId);
+	Employee getEmployee(String empId) throws AndorBusinessException;
 
-	Response addEmployee(String firstName, String lastName, String designation,
-			String gender) throws DAOException;
+	String addEmployee(Employee newEmp) throws AndorBusinessException;
 
-	Response deleteEmployee(String empId) throws NumberFormatException,
-			DAOException;
+	String deleteEmployee(String empId) throws AndorBusinessException;
 
-	Response updateEmployee(String _id, String firstName, String lastName,
-			String designation, String gender) throws DAOException;
+	String updateEmployee(Employee emp) throws AndorBusinessException;
+	
 }

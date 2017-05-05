@@ -1,7 +1,8 @@
 package com.andor.employee.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
 	private Integer _id;
 	private String firstName;
@@ -12,18 +13,6 @@ public class Employee {
 	public Employee() {
 	}
 
-	public Employee(String _id, String firstName, String lastName,
-			String designation, String gender) {
-		if (_id != null) {
-			this._id = Integer.parseInt(_id);
-		}
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.designation = designation;
-		this.gender = gender;
-	}
-
-	@JsonIgnore
 	public Integer get_Id() {
 		return _id;
 	}

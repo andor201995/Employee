@@ -1,8 +1,6 @@
 package com.andor.employee.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -15,36 +13,42 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
 public class DBUtil {
-	private final static String PATH="/home/local/PAYODA/anmol.s/workspace/Employee/src/main/resource/DB.properties";
-	private final static String DB_ID = readDBProperties("DB_ID");
-	private final static String DB_PASSWORD = readDBProperties("DB_PASSWORD");
-	private final static String DB_NAME = readDBProperties("DB_NAME");
-	private final static String HOST_NAME = readDBProperties("HOST_NAME");
-	private final static Integer DBPORT = Integer.parseInt(readDBProperties("DB_PORT"));
-	private final static MongoCredential credential = MongoCredential.createScramSha1Credential(DB_ID, DB_NAME, DB_PASSWORD.toCharArray());
-	private final static MongoClient client = new MongoClient(new ServerAddress(HOST_NAME,DBPORT), Arrays.asList(credential));
-	private final static Logger LOGGER = Logger.getLogger(DBUtil.class.getName());
+	private static MongoClient client;
+	private static final Logger LOGGER=Logger.getLogger(DBUtil.class);
+
 	private DBUtil() {
+		
 	}
 
-	private static String readDBProperties(String read) {
-		Properties dBPropFile = new Properties();
-		try {
-			InputStream inputStream = new FileInputStream(PATH);
-			dBPropFile.load(inputStream);
-			return dBPropFile.getProperty(read);
-		} catch (IOException e) {
-			LOGGER.error("Error in Reading Properties File",e);
-			return null;
-		}
-	}
-	
 	@SuppressWarnings("deprecation")
 	public static DBCollection getDBCollection(String collName)
 			throws DAOException {
-			
+		if(client==null||!client.getMongoClientOptions().isSocketKeepAlive())
+				openDBConnection();
 		return client.getDB("employee").getCollection(collName);
 		
+
+	}
+
+	private static void openDBConnection() throws DAOException {
+	 	try{
+	 	Properties dbProperties= ReadPropertiesFile.readDBProperties(System.getProperty("db_properties_file_path"));
+	 	final String DB_HOST = dbProperties.getProperty("HOST_NAME","localhost");
+		final int DB_PORT = Integer.parseInt(dbProperties.getProperty("DB_PORT","5000"));
+		final String DB_ID = dbProperties.getProperty("DB_ID");
+		final String DB_PASSWORD = dbProperties.getProperty("DB_PASSWORD");
+		final String DB_NAME = dbProperties.getProperty("DB_NAME");
+		final MongoCredential credential = MongoCredential.createScramSha1Credential(DB_ID, DB_NAME,DB_PASSWORD.toCharArray());
+		client = new MongoClient(new ServerAddress(DB_HOST, DB_PORT),Arrays.asList(credential));
+	 	}catch(FileNotFoundException | NumberFormatException | NullPointerException e){
+	 		LOGGER.error("error is reading DBproperties file",e);
+	 		throw new DAOException();
+	 	}
+	}
+
+	public static void closeDBConnection(){
+		if(client!=null||client.getMongoClientOptions().isSocketKeepAlive())
+		client.close();
 	}
 
 }

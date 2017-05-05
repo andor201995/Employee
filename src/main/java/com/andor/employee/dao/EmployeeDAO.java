@@ -13,7 +13,7 @@ public interface EmployeeDAO {
 
 	boolean deleteEmployee(Integer empId) throws DAOException;
 
-	Employee getEmployeeProfile(Integer empId) throws DAOException;
+	Employee getEmployee(Integer empId) throws DAOException;
 
 	boolean updateEmployee(Employee emp) throws DAOException;
 
