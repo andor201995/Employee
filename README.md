@@ -22,15 +22,15 @@ to learn how to configure REST,JETTY,JACKSON,MAVEN,SPRING etc.
 ## Installation
 
 The installation of project is very Simple follow the below Steps:
-    1. clone the project to a new directory.
-    2. run **mvn clean package** (all the dependencies will get downloaded automatically)
-    3. run **mvn eclipse:eclipse**
-    4. import it as a maven project to eclipse 
-    5. start mongodb using command in terminal 
+1. clone the project to a new directory.
+2. run **mvn clean package** (all the dependencies will get downloaded automatically)
+3. run **mvn eclipse:eclipse**
+4. import it as a maven project to eclipse 
+5. start mongodb using command in terminal 
 	    ```
 		    mongod --auth --port 5000 --dbpath ~/db/mongodb
 	    ```
-    6.configure your **mongodb** by creating a employee Db and employeeProfile and counters Collection by running following     code
+6.configure your **mongodb** by creating a employee Db and employeeProfile and counters Collection by running following     code
         
 	    use employee
     	db.createUser(
@@ -45,12 +45,12 @@ The installation of project is very Simple follow the below Steps:
 
    counters is used to sequential increment of _id (employee ID)
    close the mongodb and
-    7. now start mongodb using 
+7. now start mongodb using 
                 ```
 		         mongod --auth --port 5000 --dbpath ~/db/mongodb
                 ```
-    8. create a DB.properties file to configure DB in your Project
-	example
+8. create a DB.properties file to configure DB in your Project
+        	example
 	
 	        #MONGODB PROPERTIES
 			DB_ID=admin_anmol
@@ -61,7 +61,7 @@ The installation of project is very Simple follow the below Steps:
 			
 9.now set VM Arguments in eclipse
     ``` 
-        -Dport=8080 -Ddb_properties_file_path="/home/anmol/Workspace/Employee/src/main/resource/DB.properties"
+        -Dport=8080 -Ddb_properties_file_path="/home/anmol/Workspace/Employee/src/main/resource/DB.pr         operties"
 	    -Dport is the port on which your webapp is running
     ```
     
@@ -74,15 +74,15 @@ The installation of project is very Simple follow the below Steps:
 	DELETE			deleteEmployee		localhost:8080/Employee/service/deleteEmployee/{id}
 	PUT 			updateEmployee		localhost:8080/Employee/service/updateEmployee
 
-sample payload for PUT and POST("_id" is not needed as _id is auto incremented from program)
-```
-{	"_id":"1",   			
-	"firstName":"anmol",
-	"lastName":"Srivastava",
-	"designation":"JAVA Developer",
-	"gender":"male"
-}
-```			
+	sample payload for PUT and POST("_id" is not needed as _id is auto incremented from program)
+		```
+			{	"_id":"1",   			
+			"firstName":"anmol",
+			"lastName":"Srivastava",
+			"designation":"JAVA Developer",
+			"gender":"male"
+			}
+		```			
 
 ## Reference
 1. MAVEN:
