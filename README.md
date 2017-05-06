@@ -3,14 +3,14 @@ This Project is a sample Project to Implement Clean Coding and Following Coding 
 of storing employee details and performing CRUD operation on the Employee.
 
 Prerequisite 
-    *	Core JAVA programing
-    *	Serlvel Programming and structure of Web Project
-    *	Web Cointainer (ex: TOMCAT(Servlet cointainer) & JETTY)
-    *	MONGODB
-    *	MAVEN life cycles
-    *	Eclipse 
-    *	Jersey Rest(JAX-RS)
-    *	Jackson(or GSON) to convert JSON to Object (vise versa)
+    1.	Core JAVA programing
+    2.	Serlvel Programming and structure of Web Project
+    3.	Web Cointainer (ex: TOMCAT(Servlet cointainer) & JETTY)
+    4.	MONGODB
+    5.	MAVEN life cycles
+    6.	Eclipse 
+    7.	Jersey Rest(JAX-RS)
+    8.	Jackson(or GSON) to convert JSON to Object (vise versa)
 >
 ## Motivation
 
