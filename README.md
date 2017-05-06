@@ -2,7 +2,7 @@
 This Project is a sample Project to Implement Clean Coding and Following Coding Ethics.This sample project is having a very simple logic
 of storing employee details and performing CRUD operation on the Employee.
 
->Prerequisite 
+Prerequisite 
     *	Core JAVA programing
     *	Serlvel Programming and structure of Web Project
     *	Web Cointainer (ex: TOMCAT(Servlet cointainer) & JETTY)
