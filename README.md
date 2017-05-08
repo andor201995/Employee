@@ -107,8 +107,13 @@ sample payload for PUT and POST("_id" is not needed as _id is auto incremented f
 	[Pointing WEB.xml](http://stackoverflow.com/questions/17246512/embedding-jetty-as-a-servlet-container)
 
 	[JETTY+JERSEY](https://www.acando.no/thedailypassion/200555/a-rest-service-with-jetty-and-jersey)
+
 	[Embedded Jetty](http://nikgrozev.com/2014/10/16/rest-with-embedded-jetty-and-jersey-in-a-single-jar-step-by-step/)
 
-5. Jackson &Gson:
+5. Jackson & Gson:
+
 	[Gson Vs Jackson](http://www.doublecloud.org/2015/03/gson-vs-jackson-which-to-use-for-json-in-java/)
+
 	[Ignore Unknown Property in Bean](http://stackoverflow.com/questions/4486787/jackson-with-json-unrecognized-field-not-marked-as-ignorable)
+
+	[Using different context handlers](https://blog.jayway.com/2014/02/16/using-different-context-handlers-on-different-ports-in-jetty-9/)
