@@ -73,7 +73,7 @@ The installation of project is very Simple follow the below Steps:
 	PUT 			updateEmployee		localhost:8080/Employee/service/updateEmployee
 sample payload for PUT and POST("_id" is not needed as _id is auto incremented from program)
 >
-			{	"_id":"1",   			
+			{	"empId":"1",   			
 			"firstName":"anmol",
 			"lastName":"Srivastava",
 			"designation":"JAVA Developer",
@@ -100,8 +100,7 @@ sample payload for PUT and POST("_id" is not needed as _id is auto incremented f
 
 3. REST:
 
-	[convert payload to POJO](https://stackoverflow.com/questions/17568469/jersey-2-0-equivalent-to-pojomappingfeature/34336456#34336456?newreg=e8351c3fe7394753bc5e5b6a486d7723)
-
+	[Convert payload to Bean](https://stackoverflow.com/questions/17568469/jersey-2-0-equivalent-to-pojomappingfeature/34336456#34336456?newreg=e8351c3fe7394753bc5e5b6a486d7723)
 
 4. JETTY:
 
@@ -109,3 +108,7 @@ sample payload for PUT and POST("_id" is not needed as _id is auto incremented f
 
 	[JETTY+JERSEY](https://www.acando.no/thedailypassion/200555/a-rest-service-with-jetty-and-jersey)
 	[Embedded Jetty](http://nikgrozev.com/2014/10/16/rest-with-embedded-jetty-and-jersey-in-a-single-jar-step-by-step/)
+
+5. Jackson &Gson:
+	[Gson Vs Jackson](http://www.doublecloud.org/2015/03/gson-vs-jackson-which-to-use-for-json-in-java/)
+	[Ignore Unknown Property in Bean](http://stackoverflow.com/questions/4486787/jackson-with-json-unrecognized-field-not-marked-as-ignorable)

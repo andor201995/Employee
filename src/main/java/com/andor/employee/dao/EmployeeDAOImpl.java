@@ -17,10 +17,11 @@ import com.mongodb.util.JSON;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String EMPLOYEE_PROFILE = "employeeProfile";
-	private static ObjectMapper objectMapper = new ObjectMapper();
-	private static final String ERROR="Error in connecting to Employee DB";
-	private static DBCollection empCollection;
-	private static final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
+	private static final String ERROR = "Error in connecting to Employee DB";
+	private static final String EMPID = "empId";
+	private ObjectMapper objectMapper = new ObjectMapper();
+	private DBCollection empCollection;
+	private final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
 
 	public EmployeeDAOImpl() {
 		try {
@@ -29,32 +30,35 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			LOGGER.error(ERROR, e);
 		}
 	}
-	
-	@Override
-	public boolean addEmployee(Employee newEmp) throws DAOException {
-		try{
-		DBObject empDoc = (DBObject) JSON.parse( objectMapper.writeValueAsString(newEmp)); 
-		empDoc.removeField("_id");
-		empDoc.put("_id", getNextSequence("userid"));
-		empCollection.insert(empDoc);
-		return true;
-		}catch(Exception e){
-			LOGGER.error(ERROR, e);
-			throw new DAOException();
-		}
-	}
 
 	@Override
 	public List<Employee> getListOfEmployee() throws DAOException {
-		try{
-		List<Employee> empList = new ArrayList<>();
-		DBCursor cursor = empCollection.find();
-		while (cursor.hasNext()) {
-			empList.add(objectMapper.readValue(objectMapper.writeValueAsString(cursor.next()),
-					Employee.class));
+		try {
+			List<Employee> empList = new ArrayList<>();
+			DBCursor cursor = empCollection.find();
+			while (cursor.hasNext()) {
+				empList.add(objectMapper.readValue(
+						objectMapper.writeValueAsString(cursor.next()),
+						Employee.class));
+			}
+			return empList;
+		} catch (Exception e) {
+			LOGGER.error(ERROR, e);
+			throw new DAOException();
 		}
-		return empList;
-		}catch(Exception e){
+
+	}
+
+	@Override
+	public Employee getEmployee(Integer empId) throws DAOException {
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.put(EMPID, empId);
+			DBCursor cursor = empCollection.find(query);
+			return objectMapper.readValue(
+					objectMapper.writeValueAsString(cursor.next()),
+					Employee.class);
+		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			throw new DAOException();
 		}
@@ -63,55 +67,45 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public boolean deleteEmployee(Integer empId) throws DAOException {
-		try{
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", empId);
-		empCollection.remove(query);
-		return true;
-		}catch(Exception e){
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.put(EMPID, empId);
+			return empCollection.remove(query).getN() == 0 ? false : true;
+		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			throw new DAOException();
 		}
+	}
+
+	@Override
+	public boolean addEmployee(Employee newEmp) throws DAOException {
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.put(EMPID, newEmp.getEmpId());
+			DBObject empDoc = (DBObject) JSON.parse(objectMapper
+					.writeValueAsString(newEmp));
+			if (empCollection.count(query) == 0) {
+				empCollection.insert(empDoc);
+				return true;
+			}
+		} catch (Exception e) {
+			LOGGER.error(ERROR, e);
+			throw new DAOException();
+		}
+		return false;
 	}
 
 	@Override
 	public boolean updateEmployee(Employee empUpdate) throws DAOException {
-		try{
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", empUpdate.get_Id());
-		return empCollection.update(query,
-				(DBObject) JSON.parse( objectMapper.writeValueAsString(empUpdate)))
-				.isUpdateOfExisting();
-		}catch(Exception e){
-			LOGGER.error(ERROR, e);
-			throw new DAOException();
-		}
-	}
-
-	@Override
-	public Employee getEmployee(Integer empId) throws DAOException {
-		try{
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", empId);
-		DBCursor cursor = empCollection.find(query);
-		return objectMapper.readValue(objectMapper.writeValueAsString(cursor.next()), Employee.class);
-		}catch(Exception e){
-			LOGGER.error(ERROR, e);
-			throw new DAOException();
-		}
-
-	}
-
-	public static Object getNextSequence(String name) throws DAOException {
-		try{
-		DBCollection counters = DBUtil.getDBCollection("counters");
-		BasicDBObject searchQuery = new BasicDBObject("_id", name);
-		BasicDBObject increase = new BasicDBObject("seq", 1);
-		BasicDBObject updateQuery = new BasicDBObject("$inc", increase);
-		DBObject result = counters.findAndModify(searchQuery, null, null,
-				false, updateQuery, true, false);
-		return result.get("seq");
-		}catch(Exception e){
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.put(EMPID, empUpdate.getEmpId());
+			return empCollection.update(
+					query,
+					(DBObject) JSON.parse(objectMapper
+							.writeValueAsString(empUpdate)))
+					.isUpdateOfExisting();
+		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			throw new DAOException();
 		}

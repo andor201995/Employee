@@ -4,21 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee {
-	private Integer _id;
+	private Integer empId;
 	private String firstName;
 	private String lastName;
 	private String designation;
 	private String gender;
 
-	public Employee() {
+	public Integer getEmpId() {
+		return empId;
 	}
 
-	public Integer get_Id() {
-		return _id;
-	}
-
-	public void set_Id(Integer _Id) {
-		this._id = _Id;
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
 	}
 
 	public String getFirstName() {
