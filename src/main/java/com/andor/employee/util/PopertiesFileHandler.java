@@ -8,12 +8,12 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-public class ReadPropertiesFile {
+public class PopertiesFileHandler {
 
 	private static final Logger LOGGER = Logger
-			.getLogger(ReadPropertiesFile.class);
+			.getLogger(PopertiesFileHandler.class);
 
-	private ReadPropertiesFile() {
+	private PopertiesFileHandler() {
 	}
 
 	public static Properties readDBProperties(String path)

@@ -9,29 +9,32 @@ import com.andor.employee.util.DBUtil;
 public class JettyApplication {
 	private JettyApplication() {
 	}
-	 public static void main(String[] args) throws Exception {
-	        ServletContextHandler context = new ServletContextHandler();
-	        context.setContextPath("/Employee/");
-	        Server jettyServer = new Server(Integer.parseInt(System.getProperty("port")));
-	        jettyServer.setHandler(context);
 
-	        ServletHolder jerseyServlet = context.addServlet(
-	             org.glassfish.jersey.servlet.ServletContainer.class, "/*");
-	        jerseyServlet.setInitOrder(0);
+	public static void main(String[] args) throws Exception {
+		ServletContextHandler context = new ServletContextHandler();
+		context.setContextPath("/Employee/");
+		Server jettyServer = new Server(Integer.parseInt(System
+				.getProperty("port")));
+		jettyServer.setHandler(context);
 
-	        jerseyServlet.setInitParameter("jersey.config.server.provider.packages"
-	        								,"com.andor.employee.rest");
-	        jerseyServlet.setInitParameter("jersey.config.server.provider.classnames"
-	        								,"org.glassfish.jersey.moxy.json.MoxyFeature");
-	        
+		ServletHolder jerseyServlet = context
+				.addServlet(org.glassfish.jersey.servlet.ServletContainer.class, "/*");
+		jerseyServlet.setInitOrder(0);
 
-	        try {
-	            jettyServer.start();
-	            jettyServer.join();
+		jerseyServlet
+				.setInitParameter("jersey.config.server.provider.packages", "com.andor.employee.rest");
+		jerseyServlet
+				.setInitParameter("jersey.config.server.provider.classnames", "org.glassfish.jersey.jackson.JacksonFeature");
+		jerseyServlet
+				.setInitParameter("jersey.config.server.provider.classnames", "org.glassfish.jersey.filter.LoggingFilter");
 
-	        } finally {
-	        	DBUtil.closeDBConnection();
-	            jettyServer.destroy();
-	        }
-	    }
+		try {
+			jettyServer.start();
+			jettyServer.join();
+
+		} finally {
+			DBUtil.closeDBConnection();
+			jettyServer.destroy();
+		}
+	}
 }

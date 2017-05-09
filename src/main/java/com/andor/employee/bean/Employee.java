@@ -1,9 +1,15 @@
 package com.andor.employee.bean;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Employee {
+public class Employee implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3502600948094045630L;
 	private Integer empId;
 	private String firstName;
 	private String lastName;

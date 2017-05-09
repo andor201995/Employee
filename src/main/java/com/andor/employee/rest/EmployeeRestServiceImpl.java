@@ -1,5 +1,7 @@
 package com.andor.employee.rest;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,18 +25,17 @@ import com.andor.employee.service.EmployeeCRUDServiceImpl;
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeRestServiceImpl implements EmployeeRestService {
 	private EmployeeCRUDService employeeCRUDService = new EmployeeCRUDServiceImpl();
-	
-	
-	private RestResponse response = new RestResponse();
 	private final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
 	private static final String ERROR = "Error in rest layer";
 
 	@Override
 	@GET
 	@Path("/employee")
-	public RestResponse getListOfEmployee() throws AndorBusinessException {
+	public RestResponse<ArrayList<Employee>> getListOfEmployee() throws AndorBusinessException {
+		RestResponse<ArrayList<Employee>> response = new RestResponse<>();
 		try {
-			response.setEmployeeList(employeeCRUDService.getListOfEmployee());
+			response.setEntity((ArrayList<Employee>) employeeCRUDService
+					.getListOfEmployee());
 			response.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
@@ -48,10 +49,10 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	@Override
 	@GET
 	@Path("/employee/{empid}")
-	public RestResponse getEmployee(@PathParam("empid") String empId)
-			throws AndorBusinessException {
+	public RestResponse<Employee> getEmployee(@PathParam("empid") String empId) throws AndorBusinessException {
+		RestResponse<Employee> response = new RestResponse<>();
 		try {
-			response.setEmployee(employeeCRUDService.getEmployee(empId));
+			response.setEntity(employeeCRUDService.getEmployee(empId));
 			response.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
@@ -66,8 +67,8 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	@POST
 	@Path("/employee")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RestResponse addEmployee(Employee newEmp)
-			throws AndorBusinessException {
+	public RestResponse<?> addEmployee(Employee newEmp) throws AndorBusinessException {
+		RestResponse<?> response = new RestResponse<>();
 		try {
 			response.setSuccess(employeeCRUDService.addEmployee(newEmp));
 		} catch (Exception e) {
@@ -83,8 +84,8 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	@Override
 	@DELETE
 	@Path("/employee/{empId}")
-	public RestResponse deleteEmployee(@PathParam("empId") String empId)
-			throws AndorBusinessException {
+	public RestResponse<?> deleteEmployee(@PathParam("empId") String empId) throws AndorBusinessException {
+		RestResponse<?> response = new RestResponse<>();
 		try {
 			response.setSuccess(employeeCRUDService.deleteEmployee(empId));
 		} catch (Exception e) {
@@ -101,8 +102,8 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	@PUT
 	@Path("/employee")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RestResponse updateEmployee(Employee emp)
-			throws AndorBusinessException {
+	public RestResponse<?> updateEmployee(Employee emp) throws AndorBusinessException {
+		RestResponse<?> response = new RestResponse<>();
 		try {
 			response.setSuccess(employeeCRUDService.updateEmployee(emp));
 		} catch (Exception e) {

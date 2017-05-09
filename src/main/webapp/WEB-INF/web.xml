@@ -14,7 +14,7 @@
 		</init-param>
 		<init-param>
 			<param-name>jersey.config.server.provider.classnames</param-name>
-			<param-value>org.glassfish.jersey.moxy.json.MoxyFeature</param-value>
+			<param-value>org.glassfish.jersey.jackson.JacksonFeature</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

@@ -32,7 +32,7 @@ public class DBUtil {
 
 	private static void openDBConnection() throws DAOException {
 		try {
-			Properties dbProperties = ReadPropertiesFile
+			Properties dbProperties = PopertiesFileHandler
 					.readDBProperties(System
 							.getProperty("db_properties_file_path"));
 			final String DB_HOST = dbProperties

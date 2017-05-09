@@ -6,14 +6,14 @@ import com.andor.employee.exception.AndorBusinessException;
 
 public interface EmployeeRestService {
 
-	RestResponse getListOfEmployee() throws AndorBusinessException;
+	RestResponse<?> getListOfEmployee() throws AndorBusinessException;
 
-	RestResponse getEmployee(String empId) throws AndorBusinessException;
+	RestResponse<?> getEmployee(String empId) throws AndorBusinessException;
 
-	RestResponse addEmployee(Employee newEmp) throws AndorBusinessException;
+	RestResponse<?> addEmployee(Employee newEmp) throws AndorBusinessException;
 
-	RestResponse deleteEmployee(String empId) throws AndorBusinessException;
+	RestResponse<?> deleteEmployee(String empId) throws AndorBusinessException;
 
-	RestResponse updateEmployee(Employee emp) throws AndorBusinessException;
-	
+	RestResponse<?> updateEmployee(Employee emp) throws AndorBusinessException;
+
 }

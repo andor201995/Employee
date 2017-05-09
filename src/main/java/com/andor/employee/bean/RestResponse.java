@@ -1,20 +1,14 @@
 package com.andor.employee.bean;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class RestResponse {
+public class RestResponse<T extends Serializable> implements Serializable {
+	
+	private static final long serialVersionUID = 6207789905240524907L;
+
 	private boolean success;
-	private List<Employee> EmployeeList;
-	private Employee Employee;
+	private T entity;
 	private String errorMessage;
-
-	public List<Employee> getEmployeeList() {
-		return EmployeeList;
-	}
-
-	public void setEmployeeList(List<Employee> employeeList) {
-		EmployeeList = employeeList;
-	}
 
 	public boolean isSuccess() {
 		return success;
@@ -24,20 +18,20 @@ public class RestResponse {
 		this.success = success;
 	}
 
-	public Employee getEmployee() {
-		return Employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		Employee = employee;
-	}
-
 	public String getErrorMessage() {
 		return errorMessage;
 	}
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+
+	public T getEntity() {
+		return entity;
+	}
+
+	public void setEntity(T entity) {
+		this.entity = entity;
 	}
 
 }
