@@ -23,6 +23,8 @@ import com.andor.employee.service.EmployeeCRUDServiceImpl;
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeRestServiceImpl implements EmployeeRestService {
 	private EmployeeCRUDService employeeCRUDService = new EmployeeCRUDServiceImpl();
+	
+	
 	private RestResponse response = new RestResponse();
 	private final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
 	private static final String ERROR = "Error in rest layer";
@@ -62,7 +64,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 
 	@Override
 	@POST
-	@Path("/addEmployee")
+	@Path("/employee")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RestResponse addEmployee(Employee newEmp)
 			throws AndorBusinessException {
@@ -80,7 +82,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 
 	@Override
 	@DELETE
-	@Path("/deleteEmployee/{empId}")
+	@Path("/employee/{empId}")
 	public RestResponse deleteEmployee(@PathParam("empId") String empId)
 			throws AndorBusinessException {
 		try {
@@ -97,7 +99,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 
 	@Override
 	@PUT
-	@Path("/updateEmployee")
+	@Path("/employee")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RestResponse updateEmployee(Employee emp)
 			throws AndorBusinessException {

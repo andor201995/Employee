@@ -117,3 +117,8 @@ sample payload for PUT and POST("_id" is not needed as _id is auto incremented f
 	[Ignore Unknown Property in Bean](http://stackoverflow.com/questions/4486787/jackson-with-json-unrecognized-field-not-marked-as-ignorable)
 
 	[Using different context handlers](https://blog.jayway.com/2014/02/16/using-different-context-handlers-on-different-ports-in-jetty-9/)
+
+6. Spring core:
+
+	[Introduction](https://www.javatpoint.com/spring-tutorial)
+	
