@@ -1,4 +1,4 @@
-package com.andor.app;
+package com.andor.employee.app;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -10,7 +10,9 @@ public class JettyApplication {
 	private JettyApplication() {
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String...args) throws Exception {
+//		ApplicationContext ctx= new ClassPathXmlApplicationContext("applicationContext.xml");
+		
 		ServletContextHandler context = new ServletContextHandler();
 		context.setContextPath("/Employee/");
 		Server jettyServer = new Server(Integer.parseInt(System

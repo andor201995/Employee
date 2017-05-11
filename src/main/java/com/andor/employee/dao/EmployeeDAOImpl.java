@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.andor.employee.bean.Employee;
 import com.andor.employee.exception.DAOException;
@@ -14,7 +16,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
 public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String EMPLOYEE_PROFILE = "employeeProfile";
 	private static final String ERROR = "Error in connecting to Employee DB";

@@ -24,7 +24,7 @@ import com.andor.employee.service.EmployeeCRUDServiceImpl;
 @Path("/service")
 @Produces(MediaType.APPLICATION_JSON)
 public class EmployeeRestServiceImpl implements EmployeeRestService {
-	private EmployeeCRUDService employeeCRUDService = new EmployeeCRUDServiceImpl();
+	private EmployeeCRUDService employeeCRUDService=new EmployeeCRUDServiceImpl();
 	private final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
 	private static final String ERROR = "Error in rest layer";
 
