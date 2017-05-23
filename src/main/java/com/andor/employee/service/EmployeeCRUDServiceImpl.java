@@ -3,18 +3,19 @@ package com.andor.employee.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.andor.employee.bean.Employee;
 import com.andor.employee.dao.EmployeeDAO;
-import com.andor.employee.dao.EmployeeDAOImpl;
 import com.andor.employee.exception.AndorBusinessException;
 import com.andor.employee.exception.DAOException;
-@Component
+@Service
 public class EmployeeCRUDServiceImpl implements EmployeeCRUDService {
-	private EmployeeDAO empDAO=new EmployeeDAOImpl();
-	private final Logger LOGGER = Logger
-			.getLogger(EmployeeCRUDServiceImpl.class);
+	@Autowired
+	private EmployeeDAO empDAO;
+	
+	private final Logger LOGGER = Logger.getLogger(EmployeeCRUDServiceImpl.class);
 	private static final String ERROR = "Error in EmployeeCRUDServiceImpl";
 
 	@Override

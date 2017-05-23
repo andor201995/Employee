@@ -13,18 +13,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.andor.employee.bean.Employee;
 import com.andor.employee.bean.RestResponse;
 import com.andor.employee.dao.EmployeeDAOImpl;
 import com.andor.employee.exception.AndorBusinessException;
 import com.andor.employee.service.EmployeeCRUDService;
-import com.andor.employee.service.EmployeeCRUDServiceImpl;
 
 @Path("/service")
 @Produces(MediaType.APPLICATION_JSON)
+@Service
 public class EmployeeRestServiceImpl implements EmployeeRestService {
-	private EmployeeCRUDService employeeCRUDService=new EmployeeCRUDServiceImpl();
+	@Autowired 
+	private EmployeeCRUDService employeeCRUDServiceImpl;
+	
 	private final Logger LOGGER = Logger.getLogger(EmployeeDAOImpl.class);
 	private static final String ERROR = "Error in rest layer";
 
@@ -34,7 +38,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	public RestResponse<ArrayList<Employee>> getListOfEmployee() throws AndorBusinessException {
 		RestResponse<ArrayList<Employee>> response = new RestResponse<>();
 		try {
-			response.setEntity((ArrayList<Employee>) employeeCRUDService
+			response.setEntity((ArrayList<Employee>) employeeCRUDServiceImpl
 					.getListOfEmployee());
 			response.setSuccess(true);
 		} catch (Exception e) {
@@ -52,7 +56,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	public RestResponse<Employee> getEmployee(@PathParam("empid") String empId) throws AndorBusinessException {
 		RestResponse<Employee> response = new RestResponse<>();
 		try {
-			response.setEntity(employeeCRUDService.getEmployee(empId));
+			response.setEntity(employeeCRUDServiceImpl.getEmployee(empId));
 			response.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
@@ -70,7 +74,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	public RestResponse<?> addEmployee(Employee newEmp) throws AndorBusinessException {
 		RestResponse<?> response = new RestResponse<>();
 		try {
-			response.setSuccess(employeeCRUDService.addEmployee(newEmp));
+			response.setSuccess(employeeCRUDServiceImpl.addEmployee(newEmp));
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			response.setSuccess(false);
@@ -87,7 +91,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	public RestResponse<?> deleteEmployee(@PathParam("empId") String empId) throws AndorBusinessException {
 		RestResponse<?> response = new RestResponse<>();
 		try {
-			response.setSuccess(employeeCRUDService.deleteEmployee(empId));
+			response.setSuccess(employeeCRUDServiceImpl.deleteEmployee(empId));
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			response.setSuccess(false);
@@ -105,7 +109,7 @@ public class EmployeeRestServiceImpl implements EmployeeRestService {
 	public RestResponse<?> updateEmployee(Employee emp) throws AndorBusinessException {
 		RestResponse<?> response = new RestResponse<>();
 		try {
-			response.setSuccess(employeeCRUDService.updateEmployee(emp));
+			response.setSuccess(employeeCRUDServiceImpl.updateEmployee(emp));
 		} catch (Exception e) {
 			LOGGER.error(ERROR, e);
 			response.setSuccess(false);

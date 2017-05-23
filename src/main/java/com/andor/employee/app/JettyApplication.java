@@ -3,6 +3,7 @@ package com.andor.employee.app;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.web.context.ContextLoaderListener;
 
 import com.andor.employee.util.DBUtil;
 
@@ -10,11 +11,12 @@ public class JettyApplication {
 	private JettyApplication() {
 	}
 
-	public static void main(String...args) throws Exception {
-//		ApplicationContext ctx= new ClassPathXmlApplicationContext("applicationContext.xml");
-		
+	public static void main(String... args) throws Exception {
+
 		ServletContextHandler context = new ServletContextHandler();
 		context.setContextPath("/Employee/");
+		context.addEventListener(new ContextLoaderListener());
+		context.setInitParameter("contextConfigLocation", "classpath:applicationContext.xml");
 		Server jettyServer = new Server(Integer.parseInt(System
 				.getProperty("port")));
 		jettyServer.setHandler(context);
